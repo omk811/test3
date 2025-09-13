@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصنيف الكلمات المعربة والمبنية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        body {
+            font-family: 'Amiri', serif;
+        }
+        .word-button {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .word-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .selected {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .table-cell {
+            min-height: 60px;
+            border: 2px dashed #cbd5e1;
+            transition: all 0.3s ease;
+        }
+        .table-cell.has-words {
+            border-style: solid;
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .word-in-table {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 4px;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .word-in-table:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- العنوان -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">تصنيف الكلمات المعربة والمبنية</h1>
+            <p class="text-lg text-gray-600">اضغط على الكلمات لتصنيفها في الجدول المناسب</p>
+        </div>
+
+        <!-- النص مع الكلمات القابلة للنقر -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">النص</h2>
+            <div class="text-xl leading-relaxed text-gray-700 text-center space-y-4">
+                <p>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="يحرص">يحرص</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="المسلم">المسلم</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="على">على</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="أداء">أداء</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="الصلاة">الصلاة</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="في">في</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="وقتها">وقتها</span>
+                </p>
+                <p>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="لأن">لأن</span>
+                    <span class="px-3 py-2 mx-1 text-gray-600">الصلاة</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="هي">هي</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="عماد">عماد</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="الدين">الدين</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="وهي">وهي</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="أول">أول</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="ما">ما</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="يحاسب">يحاسب</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="عليه">عليه</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="العبد">العبد</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="يوم">يوم</span>
+                    <span class="word-button bg-yellow-100 hover:bg-yellow-200 px-3 py-2 rounded-lg mx-1" data-word="القيامة">القيامة</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- الجدول التفاعلي -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">جدول التصنيف</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- عمود الكلمات المعربة -->
+                <div class="bg-green-50 rounded-xl p-6 border-2 border-green-200">
+                    <h3 class="text-xl font-bold text-green-800 mb-4 text-center">الكلمات المعربة</h3>
+                    <div id="morab-words" class="table-cell min-h-32 p-4 rounded-lg bg-white">
+                        <p class="text-gray-500 text-center text-sm">اضغط على الكلمات المعربة لإضافتها هنا</p>
+                    </div>
+                </div>
+
+                <!-- عمود الكلمات المبنية -->
+                <div class="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4 text-center">الكلمات المبنية</h3>
+                    <div id="mabni-words" class="table-cell min-h-32 p-4 rounded-lg bg-white">
+                        <p class="text-gray-500 text-center text-sm">اضغط على الكلمات المبنية لإضافتها هنا</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أزرار التحكم -->
+            <div class="flex justify-center gap-4 mt-8">
+                <button id="reset-btn" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105">
+                    إعادة تعيين
+                </button>
+                <button id="check-btn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105">
+                    تحقق من الإجابات
+                </button>
+            </div>
+
+            <!-- منطقة النتائج -->
+            <div id="results" class="mt-6 p-4 rounded-lg hidden"></div>
+        </div>
+
+        <!-- الروابط المفيدة -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">روابط مفيدة</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- رابط الملخص والنشاط -->
+                <a href="https://omk811.blogspot.com/2025/09/blog-post_10.html" target="_blank" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-6 rounded-xl text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <div class="text-3xl mb-3">📚</div>
+                    <h3 class="text-lg font-bold mb-2">ملخص ونشاط</h3>
+                    <p class="text-sm opacity-90">الإعراب والبناء</p>
+                </a>
+
+                <!-- رابط قناة الواتساب -->
+                <a href="https://whatsapp.com/channel/0029VamotBKCxoAy3fzUcv3T" target="_blank" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-6 rounded-xl text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <div class="text-3xl mb-3">💬</div>
+                    <h3 class="text-lg font-bold mb-2">قناة الواتساب</h3>
+                    <p class="text-sm opacity-90">للمتابعة والتحديثات</p>
+                </a>
+
+                <!-- رابط الموقع الرسمي -->
+                <a href="https://omk811.blogspot.com/" target="_blank" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white p-6 rounded-xl text-center transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <div class="text-3xl mb-3">🌐</div>
+                    <h3 class="text-lg font-bold mb-2">الموقع الرسمي</h3>
+                    <p class="text-sm opacity-90">الأستاذ خليل البلوشي</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // الإجابات الصحيحة
+        const correctAnswers = {
+            morab: ['يحرص', 'المسلم', 'أداء', 'الصلاة', 'وقتها', 'عماد', 'الدين', 'أول', 'يحاسب', 'العبد', 'يوم', 'القيامة'],
+            mabni: ['على', 'في', 'لأن', 'هي', 'وهي', 'ما', 'عليه']
+        };
+
+        let selectedWords = {
+            morab: [],
+            mabni: []
+        };
+
+        let currentCategory = 'morab'; // البداية بالكلمات المعربة
+
+        // إضافة مستمعي الأحداث للكلمات
+        document.querySelectorAll('.word-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const word = this.dataset.word;
+                
+                // إظهار نافذة اختيار التصنيف
+                showCategoryModal(word, this);
+            });
+        });
+
+        function showCategoryModal(word, buttonElement) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">تصنيف الكلمة</h3>
+                    <p class="text-lg text-gray-600 mb-6">كيف تريد تصنيف كلمة "<span class="font-bold text-blue-600">${word}</span>"؟</p>
+                    <div class="flex gap-4 justify-center">
+                        <button class="category-btn bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300" data-category="morab">
+                            معربة
+                        </button>
+                        <button class="category-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300" data-category="mabni">
+                            مبنية
+                        </button>
+                    </div>
+                    <button class="cancel-btn mt-4 text-gray-500 hover:text-gray-700 underline">إلغاء</button>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // إضافة مستمعي الأحداث لأزرار التصنيف
+            modal.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    addWordToTable(word, category, buttonElement);
+                    document.body.removeChild(modal);
+                });
+            });
+
+            // زر الإلغاء
+            modal.querySelector('.cancel-btn').addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+
+            // إغلاق النافذة بالنقر خارجها
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+
+        function addWordToTable(word, category, buttonElement) {
+            // إضافة الكلمة للمصفوفة
+            selectedWords[category].push(word);
+            
+            // تحديث الجدول
+            updateTable(category);
+            
+            // تعطيل الزر
+            buttonElement.classList.add('selected');
+        }
+
+        function updateTable(category) {
+            const container = document.getElementById(category + '-words');
+            
+            if (selectedWords[category].length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-center text-sm">اضغط على الكلمات ${category === 'morab' ? 'المعربة' : 'المبنية'} لإضافتها هنا</p>`;
+                container.classList.remove('has-words');
+            } else {
+                container.innerHTML = selectedWords[category].map(word => 
+                    `<span class="word-in-table" data-word="${word}" data-category="${category}">${word}</span>`
+                ).join('');
+                container.classList.add('has-words');
+                
+                // إضافة مستمعي الأحداث لإزالة الكلمات
+                container.querySelectorAll('.word-in-table').forEach(span => {
+                    span.addEventListener('click', function() {
+                        removeWordFromTable(this.dataset.word, this.dataset.category);
+                    });
+                });
+            }
+        }
+
+        function removeWordFromTable(word, category) {
+            // إزالة الكلمة من المصفوفة
+            selectedWords[category] = selectedWords[category].filter(w => w !== word);
+            
+            // تحديث الجدول
+            updateTable(category);
+            
+            // إعادة تفعيل الزر
+            document.querySelectorAll('.word-button').forEach(btn => {
+                if (btn.dataset.word === word) {
+                    btn.classList.remove('selected');
+                }
+            });
+        }
+
+        // زر إعادة التعيين
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            selectedWords = { morab: [], mabni: [] };
+            updateTable('morab');
+            updateTable('mabni');
+            
+            document.querySelectorAll('.word-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            document.getElementById('results').classList.add('hidden');
+        });
+
+        // زر التحقق من الإجابات
+        document.getElementById('check-btn').addEventListener('click', function() {
+            checkAnswers();
+        });
+
+        function checkAnswers() {
+            const results = document.getElementById('results');
+            
+            // عدد الكلمات الفعلي في النص (18 كلمة تفاعلية)
+            const totalWords = 18;
+            
+            // التحقق من الكلمات المعربة
+            const correctMorab = selectedWords.morab.filter(word => correctAnswers.morab.includes(word));
+            const wrongMorab = selectedWords.morab.filter(word => !correctAnswers.morab.includes(word));
+            
+            // التحقق من الكلمات المبنية
+            const correctMabni = selectedWords.mabni.filter(word => correctAnswers.mabni.includes(word));
+            const wrongMabni = selectedWords.mabni.filter(word => !correctAnswers.mabni.includes(word));
+            
+            const correctCount = correctMorab.length + correctMabni.length;
+            
+            const percentage = Math.round((correctCount / totalWords) * 100);
+            
+            let resultHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-4">نتائج التصنيف</h3>
+                    <div class="text-6xl mb-4">${percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '📚'}</div>
+                    <p class="text-xl mb-4">النتيجة: ${correctCount}/${totalWords} (${percentage}%)</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-800 mb-2">الكلمات المعربة الصحيحة:</h4>
+                        <p class="text-green-700">${correctMorab.join(', ') || 'لا توجد'}</p>
+                        ${wrongMorab.length > 0 ? `<h4 class="font-bold text-red-800 mb-2 mt-4">خطأ في التصنيف:</h4><p class="text-red-700">${wrongMorab.join(', ')}</p>` : ''}
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-800 mb-2">الكلمات المبنية الصحيحة:</h4>
+                        <p class="text-blue-700">${correctMabni.join(', ') || 'لا توجد'}</p>
+                        ${wrongMabni.length > 0 ? `<h4 class="font-bold text-red-800 mb-2 mt-4">خطأ في التصنيف:</h4><p class="text-red-700">${wrongMabni.join(', ')}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            results.innerHTML = resultHTML;
+            results.className = `mt-6 p-6 rounded-lg ${percentage >= 80 ? 'bg-green-100 border-2 border-green-300' : percentage >= 60 ? 'bg-yellow-100 border-2 border-yellow-300' : 'bg-red-100 border-2 border-red-300'}`;
+            results.classList.remove('hidden');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97e9a0ea529df9f6',t:'MTc1Nzc4NzMxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
